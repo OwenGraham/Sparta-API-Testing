@@ -16,33 +16,4 @@ public class GetCoursesStepDefs extends StepDefSuper{
     public GetCoursesStepDefs(SharedState sharedState) {
         this.sharedState = sharedState;
     }
-
-    @Given("I have obtained a bearer token")
-    public void IHaveObtainedABearerToken() throws JsonProcessingException {
-        String body = mapper.writeValueAsString(Map.of(
-                "username","sparta",
-                "password","global"
-        ));
-        sharedState.response = RestAssured
-                .given()
-                .baseUri(sharedState.ROOT_URI)
-                .basePath(sharedState.endpoint)
-                .contentType("application/json")
-                .body(body)
-                .when()
-                .post()
-                .thenReturn();
-        sharedState.token = response.getBody().jsonPath().getString("token");
-    }
-
-    @When("I send a GET request")
-    public void iSendAGETRequest() {
-        sharedState.response = RestAssured
-                .given()
-                    .baseUri(sharedState.ROOT_URI)
-                    .basePath(sharedState.endpoint)
-                .when()
-                    .get()
-                .thenReturn();
-    }
 }

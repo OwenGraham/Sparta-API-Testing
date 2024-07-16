@@ -1,24 +1,12 @@
 package com.sparta.ojg.stepdefs;
 
 import com.sparta.ojg.SharedState;
-import io.cucumber.core.internal.com.fasterxml.jackson.core.JsonProcessingException;
-import io.cucumber.core.internal.com.fasterxml.jackson.databind.ObjectMapper;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
-import io.cucumber.java.en.Then;
-import io.cucumber.java.en.When;
-import io.restassured.RestAssured;
-import io.restassured.response.Response;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
-import org.json.simple.JSONObject;
-
-import java.util.Map;
 
 public class AuthStepDef extends StepDefSuper{
-    private String username;
-    private String password;
-
     private final SharedState sharedState;
 
     public AuthStepDef(SharedState sharedState) {
@@ -33,35 +21,13 @@ public class AuthStepDef extends StepDefSuper{
 
     @And("the username {string}")
     public void theUsernameUsername(String username) {
-        this.username = username;
+        sharedState.account.setUsername(username);
     }
 
 
     @And("the password {string}")
     public void thePasswordPassword(String password) {
-        this.password = password;
-    }
-
-    @When("I send a POST request")
-    public void iSendAPOSTRequest() throws JsonProcessingException {
-        String body = mapper.writeValueAsString(Map.of(
-                "username",username,
-                "password",password
-        ));
-        sharedState.response = RestAssured
-                .given()
-                    .baseUri(sharedState.ROOT_URI)
-                    .basePath(sharedState.endpoint)
-                    .contentType("application/json")
-                    .body(body)
-                .when()
-                    .post()
-                .thenReturn();
-    }
-
-    @Then("the status code of the response should be {string}")
-    public void theStatusCodeOfTheResponseShouldBe(String code) {
-        MatcherAssert.assertThat(sharedState.response.statusCode(), Matchers.is(Integer.valueOf(code)));
+        sharedState.account.setPassword(password);
     }
 
     @And("the response body should include a bearer token")
@@ -72,5 +38,10 @@ public class AuthStepDef extends StepDefSuper{
     @And("the response body should not include a bearer token")
     public void theResponseBodyShouldNotIncludeABearerToken() {
         MatcherAssert.assertThat(sharedState.response.getBody().jsonPath().get("token"),Matchers.not(Matchers.notNullValue()));
+    }
+
+    @And("the request body containing the username and password")
+    public void theRequestBodyContainingTheUsernameAndPassword() {
+        sharedState.requestBody = sharedState.account.getCredentialsAsJson();
     }
 }
