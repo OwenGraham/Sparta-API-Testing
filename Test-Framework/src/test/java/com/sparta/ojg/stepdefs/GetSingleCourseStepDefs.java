@@ -15,6 +15,7 @@ public class GetSingleCourseStepDefs extends StepDefSuper{
 
     @And("the response body should contain the info for the {string} course")
     public void theResponseBodyShouldContainTheInfoForTheTECHCourse(String courseName) {
+        String s = sharedState.response.getBody().jsonPath().getString("name");
         MatcherAssert.assertThat(sharedState.response.getBody().jsonPath().get("name"), Matchers.is(courseName));
     }
 

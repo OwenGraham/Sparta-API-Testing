@@ -1,7 +1,10 @@
 package com.sparta.ojg.stepdefs;
 
 import com.sparta.ojg.SharedState;
+import com.sparta.ojg.Utils;
 import io.cucumber.core.internal.com.fasterxml.jackson.core.JsonProcessingException;
+import io.cucumber.java.Before;
+import io.cucumber.java.BeforeAll;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -13,10 +16,17 @@ import org.hamcrest.Matchers;
 import java.util.Map;
 
 public class CommonStepDefs extends StepDefSuper{
-    private final SharedState sharedState;
+    private static SharedState sharedState;
+    private static Utils utils;
 
     public CommonStepDefs(SharedState sharedState) {
         this.sharedState = sharedState;
+        utils = new Utils(sharedState);
+    }
+
+    @Given("the endpoint {string}")
+    public void theEndpointEndpoint(String endpoint) {
+        sharedState.endpoint = endpoint;
     }
 
     @Given("I have obtained a bearer token")
@@ -49,43 +59,17 @@ public class CommonStepDefs extends StepDefSuper{
 
     @When("I send a GET request")
     public void iSendAGETRequest() {
-        sharedState.response = RestAssured
-                .given()
-                    .baseUri(sharedState.ROOT_URI)
-                    .basePath(sharedState.endpoint)
-                    .pathParams(sharedState.pathParams)
-                    .headers(sharedState.headers)
-                .when()
-                    .get()
-                .thenReturn();
+        sharedState.response = utils.getRequest();
     }
 
     @When("I send a POST request")
     public void iSendAPOSTRequest() throws JsonProcessingException {
-        sharedState.response = RestAssured
-                .given()
-                    .baseUri(sharedState.ROOT_URI)
-                    .basePath(sharedState.endpoint)
-                    .contentType("application/json")
-                    .body(sharedState.requestBody)
-                    .headers(sharedState.headers)
-                .when()
-                    .post()
-                .thenReturn();
+        sharedState.response = utils.postRequest();
     }
 
     @When("I send a POST request with body from file")
     public void iSendAPOSTRequestWithBodyFromFile() throws JsonProcessingException {
-        sharedState.response = RestAssured
-                .given()
-                    .baseUri(sharedState.ROOT_URI)
-                    .basePath(sharedState.endpoint)
-                    .contentType("application/json")
-                    .body(sharedState.bodyFile)
-                    .headers(sharedState.headers)
-                .when()
-                    .post()
-                .thenReturn();
+        sharedState.response = utils.postRequestWithBodyFile();
     }
 
     @Then("the status code of the response should be {int}")

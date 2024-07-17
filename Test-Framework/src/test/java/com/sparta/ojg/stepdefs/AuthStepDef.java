@@ -13,12 +13,6 @@ public class AuthStepDef extends StepDefSuper{
         this.sharedState = sharedState;
     }
 
-
-    @Given("the endpoint {string}")
-    public void theEndpointEndpoint(String endpoint) {
-        sharedState.endpoint = endpoint;
-    }
-
     @And("the username {string}")
     public void theUsernameUsername(String username) {
         sharedState.account.setUsername(username);
