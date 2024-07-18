@@ -47,4 +47,30 @@ public class Utils {
                 .post()
                 .thenReturn();
     }
+
+    public Response putRequest(){
+        return RestAssured
+                .given()
+                .baseUri(sharedState.ROOT_URI)
+                .basePath(sharedState.endpoint)
+                .contentType("application/json")
+                .body(sharedState.bodyFile)
+                .headers(sharedState.headers)
+                .pathParams(sharedState.pathParams)
+                .when()
+                .put()
+                .thenReturn();
+    }
+
+    public Response deleteRequest() {
+        return RestAssured
+                .given()
+                .baseUri(sharedState.ROOT_URI)
+                .basePath(sharedState.endpoint)
+                .headers(sharedState.headers)
+                .pathParams(sharedState.pathParams)
+                .when()
+                .delete()
+                .thenReturn();
+    }
 }

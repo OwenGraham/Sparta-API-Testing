@@ -52,7 +52,6 @@ public class CreateSpartanStepDefs extends StepDefSuper{
         sharedState.endpoint = "/api/Spartans";
         Utils utils = new Utils(sharedState);
         Response response = utils.getRequest();
-        String spartansString = response.getBody().toString();
 
         // Extract data from the JSON array in the response
         List<Map<String, ?>> users = response.jsonPath().getList("$");
@@ -62,15 +61,6 @@ public class CreateSpartanStepDefs extends StepDefSuper{
             if (user.get("id").equals(0)) found = true;
         }
         assertThat(found,is(false));
-
-//        JSONArray spartansArray = new JSONArray(response.getBody().toString());
-//
-//        boolean found = false;
-//        for (var spartan : spartansArray){
-//            JSONObject spartanJson = (JSONObject) spartan;
-//            if (spartanJson.get("id").equals(0)) found = true;
-//        }
-//        assertThat(found,is(false));
     }
 
     @And("the Spartan should appear in subsequent GET requests to the get all Spartans endpoint")

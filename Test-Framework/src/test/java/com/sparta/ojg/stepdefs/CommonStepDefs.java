@@ -72,8 +72,18 @@ public class CommonStepDefs extends StepDefSuper{
         sharedState.response = utils.postRequestWithBodyFile();
     }
 
+    @When("I send a PUT request")
+    public void iSendAPUTRequest() {
+        sharedState.response = utils.putRequest();
+    }
+
     @Then("the status code of the response should be {int}")
     public void theStatusCodeOfTheResponseShouldBe(int code) {
         MatcherAssert.assertThat(sharedState.response.statusCode(), Matchers.is(code));
+    }
+
+    @When("I send a DELETE request")
+    public void iSendADELETERequest() {
+        sharedState.response = utils.deleteRequest();
     }
 }
