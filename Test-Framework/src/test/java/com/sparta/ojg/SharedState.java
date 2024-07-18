@@ -7,7 +7,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class SharedState {
-    public final String ROOT_URI = "http://localhost:8080";
+    public final String ROOT_URI = "https://spartaacademyapi20240530152521.azurewebsites.net";
+//    public final String ROOT_URI = "http://localhost:8080";
     public String endpoint;
 
     public Map<String,String> pathParams = new HashMap<>();
