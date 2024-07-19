@@ -17,7 +17,7 @@ import static org.hamcrest.Matchers.*;
 
 public class CommonStepDefs{
     private final SharedState sharedState;
-    private final Utils utils;
+    public Utils utils;
 
     public CommonStepDefs(SharedState sharedState) {
         this.sharedState = sharedState;
