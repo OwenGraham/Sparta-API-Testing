@@ -3,7 +3,7 @@ Feature: update Spartan data by ID
     Given I have obtained a bearer token
     And the endpoint "api/Spartans/{id}"
     And the id path param set as 2
-    And the request body containing valid data taken from the file "<file>"
+    And the request body containing data taken from the file "<file>"
     When I send a PUT request
     Then the status code of the response should be 200
     Examples:
@@ -14,7 +14,7 @@ Feature: update Spartan data by ID
     Given I have obtained a bearer token
     And the endpoint "api/Spartans/{id}"
     And the id path param set as <id>
-    And the request body containing valid data taken from the file "<file>"
+    And the request body containing data taken from the file "<file>"
     When I send a PUT request
     Then the "<field>" of the response body from a subsequent GET request to the get Spartan with <id> endpoint should be "<expected>"
     Examples:
@@ -25,7 +25,7 @@ Feature: update Spartan data by ID
     Given I have obtained a bearer token
     And the endpoint "api/Spartans/{id}"
     And the id path param set as <id>
-    And the request body containing valid data taken from the file "<file>"
+    And the request body containing data taken from the file "<file>"
     When I send a PUT request
     Then the status code of the response should be 400
     Examples:
@@ -39,7 +39,7 @@ Feature: update Spartan data by ID
     Given I have obtained a bearer token
     And the endpoint "api/Spartans/{id}"
     And the id path param set as <id>
-    And the request body containing valid data taken from the file "<file>"
+    And the request body containing data taken from the file "<file>"
     When I send a PUT request
     Then the "<field>" of the response body from a subsequent GET request to the get Spartan with <id> endpoint should be "<expected>"
     Examples:
@@ -53,7 +53,7 @@ Feature: update Spartan data by ID
     Given I have obtained a bearer token
     And the endpoint "api/Spartans/{id}"
     And the id path param set as 0
-    And the request body containing valid data taken from the file "<file>"
+    And the request body containing data taken from the file "<file>"
     When I send a PUT request
     Then the status code of the response should be 404
     Examples:
@@ -64,7 +64,7 @@ Feature: update Spartan data by ID
     Given I have obtained a bearer token
     And the endpoint "api/Spartans/{id}"
     And the id path param set as 5
-    And the request body containing valid data taken from the file "<file>"
+    And the request body containing data taken from the file "<file>"
     When I send a PUT request
   #with body containing all existing data for Spartan with ID 1 apart from the id field set to 2
     Then the status code of the response should be 400

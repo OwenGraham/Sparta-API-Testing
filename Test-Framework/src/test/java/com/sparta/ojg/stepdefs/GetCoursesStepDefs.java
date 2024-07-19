@@ -10,7 +10,7 @@ import io.restassured.RestAssured;
 
 import java.util.Map;
 
-public class GetCoursesStepDefs extends StepDefSuper{
+public class GetCoursesStepDefs{
     private final SharedState sharedState;
 
     public GetCoursesStepDefs(SharedState sharedState) {

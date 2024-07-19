@@ -20,6 +20,7 @@ public class Account {
     }
 
     public String getCredentialsAsJson(){
+        //Create a JSON string containing the username and password in the format the API accepts
         try {
             return mapper.writeValueAsString(Map.of(
                     "username",username,
