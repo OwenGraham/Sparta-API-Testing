@@ -10,7 +10,8 @@ import static org.hamcrest.Matchers.*;
 
 public class UpdateSpartanStepDefs{
     private final SharedState sharedState;
-    private final Utils utils;
+    public Utils utils;
+    public String actual;
 
     public UpdateSpartanStepDefs(SharedState sharedState) {
         this.sharedState = sharedState;
@@ -29,7 +30,7 @@ public class UpdateSpartanStepDefs{
         //Get the value for the field given in the Gherkin script
         String responseBody = response.getBody().asString();
         JsonPath jsonPath = new JsonPath(responseBody);
-        String actual = jsonPath.getString(field);
+        actual = jsonPath.getString(field);
         //Assert that the value is the same as the one given in the Gherkin script
         assertThat(actual,is(updated));
     }

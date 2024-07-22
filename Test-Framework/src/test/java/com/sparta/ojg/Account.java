@@ -19,6 +19,14 @@ public class Account {
         this.password = password;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
     public String getCredentialsAsJson(){
         //Create a JSON string containing the username and password in the format the API accepts
         try {

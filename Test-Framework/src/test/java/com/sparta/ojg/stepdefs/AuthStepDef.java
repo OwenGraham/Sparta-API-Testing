@@ -9,6 +9,9 @@ import static org.hamcrest.Matchers.*;
 
 public class AuthStepDef{
     private final SharedState sharedState;
+    String responseBody;
+    JsonPath jsonPath;
+    public String token = "";
 
     public AuthStepDef(SharedState sharedState) {
         this.sharedState = sharedState;
@@ -35,18 +38,18 @@ public class AuthStepDef{
     @And("the response body should include a bearer token")
     public void theResponseBodyShouldIncludeABearerToken() {
         // Assert that the JSON body of the response contains a value for the token field
-        String responseBody = sharedState.response.getBody().asString();
-        JsonPath jsonPath = new JsonPath(responseBody);
-        String token = jsonPath.get("token");
+        responseBody = sharedState.response.getBody().asString();
+        jsonPath = new JsonPath(responseBody);
+        token = jsonPath.get("token");
         assertThat(token, notNullValue());
     }
 
     @And("the response body should not include a bearer token")
     public void theResponseBodyShouldNotIncludeABearerToken() {
         //Assert that the JSON body of the response does not contain a value for the token field
-        String responseBody = sharedState.response.getBody().asString();
-        JsonPath jsonPath = new JsonPath(responseBody);
-        String token = jsonPath.get("token");
+        responseBody = sharedState.response.getBody().asString();
+        jsonPath = new JsonPath(responseBody);
+        token = jsonPath.get("token");
         assertThat(token,not(notNullValue()));
     }
 }

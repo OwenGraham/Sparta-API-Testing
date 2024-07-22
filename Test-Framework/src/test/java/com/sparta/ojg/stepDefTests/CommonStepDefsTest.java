@@ -30,7 +30,9 @@ public class CommonStepDefsTest {
     @Mock
     private Response response;
 
+    @InjectMocks
     private CommonStepDefs commonStepDefs;
+
 
     @Before
     public void setUp() {
@@ -39,9 +41,6 @@ public class CommonStepDefsTest {
         // Initialize the SharedState maps
         sharedState.headers = new HashMap<>();
         sharedState.pathParams = new HashMap<>();
-
-        // Initialize the CommonStepDefs instance with the mocked SharedState
-        commonStepDefs = new CommonStepDefs(sharedState);
 
         // Set the Utils mock
         commonStepDefs.utils = utils;

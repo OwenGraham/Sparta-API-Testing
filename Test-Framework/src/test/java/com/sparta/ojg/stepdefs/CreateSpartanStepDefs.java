@@ -3,7 +3,6 @@ package com.sparta.ojg.stepdefs;
 import com.sparta.ojg.SharedState;
 import com.sparta.ojg.Utils;
 import io.cucumber.core.internal.com.fasterxml.jackson.core.JsonParseException;
-import io.cucumber.core.internal.com.fasterxml.jackson.core.JsonProcessingException;
 import io.cucumber.core.internal.com.fasterxml.jackson.databind.JsonNode;
 import io.cucumber.core.internal.com.fasterxml.jackson.databind.ObjectMapper;
 import io.cucumber.java.en.And;

@@ -9,7 +9,7 @@ import static org.hamcrest.Matchers.*;
 
 public class GetSingleCourseStepDefs{
     private final SharedState sharedState;
-    private int ID;
+    public String name;
 
     public GetSingleCourseStepDefs(SharedState sharedState) {
         this.sharedState = sharedState;
@@ -20,7 +20,7 @@ public class GetSingleCourseStepDefs{
         //Get the name value from the response body
         String responseBody = sharedState.response.getBody().asString();
         JsonPath jsonPath = new JsonPath(responseBody);
-        String name = jsonPath.get("name");
+        name = jsonPath.get("name");
         //Assert that the name matches the course name given in the Gherkin script
         assertThat(name, is(courseName));
     }

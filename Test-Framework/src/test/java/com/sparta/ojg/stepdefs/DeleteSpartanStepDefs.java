@@ -9,7 +9,8 @@ import static org.hamcrest.Matchers.*;
 
 public class DeleteSpartanStepDefs{
     private final SharedState sharedState;
-    private final Utils utils;
+    public Utils utils;
+    public Response response;
 
     public DeleteSpartanStepDefs(SharedState sharedState) {
         this.sharedState = sharedState;
@@ -23,7 +24,7 @@ public class DeleteSpartanStepDefs{
         //Set the request's id path param to the id given in the Gherkin script
         sharedState.pathParams.put("id", String.valueOf(id));
         //Send a DELETE request
-        Response response = utils.deleteRequest();
+        response = utils.deleteRequest();
         //Assert that the status code matches the one given in the Gherkin script
         assertThat(response.statusCode(),is(expectedStatusCode));
     }

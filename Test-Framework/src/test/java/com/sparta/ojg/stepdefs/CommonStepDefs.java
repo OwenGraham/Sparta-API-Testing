@@ -1,15 +1,19 @@
 package com.sparta.ojg.stepdefs;
 
+import com.sparta.ojg.RestartDocker;
 import com.sparta.ojg.SharedState;
 import com.sparta.ojg.Utils;
 import io.cucumber.core.internal.com.fasterxml.jackson.core.JsonProcessingException;
 import io.cucumber.core.internal.com.fasterxml.jackson.databind.ObjectMapper;
+import io.cucumber.java.AfterAll;
+import io.cucumber.java.Before;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.restassured.path.json.JsonPath;
 
+import java.io.IOException;
 import java.util.Map;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -22,6 +26,15 @@ public class CommonStepDefs{
     public CommonStepDefs(SharedState sharedState) {
         this.sharedState = sharedState;
         utils = new Utils(sharedState);
+    }
+
+    @AfterAll
+    public static void restartDocker(){
+        try {
+            RestartDocker.restart();
+        } catch (IOException | InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Given("the endpoint {string}")
