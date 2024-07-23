@@ -1,9 +1,33 @@
-# Sparta-API-Testing
+# Sparta API Testing Project
 
-### API Documentation 
+## Contents
+
+- [API Documentation](#api-documentation)
+- [Setup Instructions](#setup-instructions)
+- [User Guide](#user-guide)
+- [Framework Architecture](#framework-architecture)
+- [Features, Scenarios, and Defects](#features-scenarios-and-defects)
+- [Contribution Guidelines For Future Testers](#contribution-guidelines-for-future-testers)
+
+### Setup Instructions
+
+The following setup instructions are for Windows operating systems.
+
+- Clone the repository to you local machine
+- Open `/Test-Framework/` in your IDE and build the Maven project.
+
+#### If running containerized API 
+
+### User Guide
+
+### API Documentation
 [Here](https://spartaacademyapi20240530152521.azurewebsites.net/swagger/index.html)
 
-### Scenarios and Defects 
+### Framework Architecture
+
+![UML Diagram](/Documentation/UML Diagram.png)
+
+### Features, Scenarios, and Defects
 
 | Feature                                                                                                              | Scenarios                                                                                                                     | Defects                                                                                                                                                                     |
 |----------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -32,8 +56,7 @@
 |                                                                                                                      | **Scenario 06.02** Request existing Spartan by ID and verify response body contains requested data                            |                                                                                                                                                                             |
 |                                                                                                                      | **Scenario 06.03** Request a non-existing Spartan by ID                                                                       | [**Defect 06.03.01**  Get non-existent spartan gives wrong status code](https://github.com/users/OwenGraham/projects/3/views/1?pane=issue&itemId=71546886)                  |
 |                                                                                                                      | **Scenario 06.04** Request Spartan with invalid ID                                                                            |                                                                                                                                                                             |
-| [Feature 07: Delete Spartan](https://github.com/users/OwenGraham/projects/3/views/1?pane=issue&itemId=70436057)      | **Scenario 07.01** Delete an existing Spartan by ID and verify status code                                                    | [**Defect 07.01.01**: DELETE Spartan response doesn't provide any information](https://github.com/users/OwenGraham/projects/3/views/1?pane=issue&itemId=70728831)
-                                                                                                                                                       | 
+| [Feature 07: Delete Spartan](https://github.com/users/OwenGraham/projects/3/views/1?pane=issue&itemId=70436057)      | **Scenario 07.01** Delete an existing Spartan by ID and verify status code                                                    | [**Defect 07.01.01**: DELETE Spartan response doesn't provide any information](https://github.com/users/OwenGraham/projects/3/views/1?pane=issue&itemId=70728831)           | 
 |                                                                                                                      | **Scenario 07.02** Delete an existing Spartan by ID and verify Spartan no longer exists in database                           |                                                                                                                                                                             |   
 |                                                                                                                      | **Scenario 07.03** Delete a non-existing Spartan                                                                              |                                                                                                                                                                             |
 | [Feature 08: Update Spartan](https://github.com/users/OwenGraham/projects/3/views/1?pane=issue&itemId=70439384)      | **Scenario 08.01** Update existing Spartan with valid data and verify status code of response                                 | [**Defect 08.01.01** Incorrect status code for successful update spartan](https://github.com/users/OwenGraham/projects/3/views/1?pane=issue&itemId=71392292)                |
@@ -42,3 +65,5 @@
 |                                                                                                                      | **Scenario 08.04** Update existing Spartan with invalid (missing/incorrect data type) data and verify database isn't updated  |                                                                                                                                                                             | 
 |                                                                                                                      | **Scenario 08.05** Update non-existing Spartan                                                                                | [**Defect 08.05.01** Update non-existing Spartan returns incorrect response code](https://github.com/users/OwenGraham/projects/3/views/1?pane=issue&itemId=71396210)        |
 |                                                                                                                      | **Scenario 08.06** Update existing Spartan's ID to already taken ID                                                           |                                                                                                                                                                             |
+
+### Contribution Guidelines For Future Testers
