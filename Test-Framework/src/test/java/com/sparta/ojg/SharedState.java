@@ -7,10 +7,19 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class SharedState {
-    //Live version
-//    public final String ROOT_URI = "https://spartaacademyapi20240530152521.azurewebsites.net";
-    //Containerized version
-    public final String ROOT_URI = "http://localhost:8080";
+    public final String ROOT_URI = getURI();
+
+    public String getURI(){
+        String os = System.getProperty("os.name").toLowerCase();
+        //Live version
+        if (os.contains("nix") || os.contains("nux") || os.contains("aix")){
+            return "https://spartaacademyapi20240530152521.azurewebsites.net";
+        }
+        //Containerized version
+        else{
+            return "http://localhost:8080";
+        }
+    }
 
     //The path used in the API call
     public String endpoint;
