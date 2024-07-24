@@ -22,5 +22,6 @@ jobs:
           distribution: "adopt"
           
       - name: Build and test with Maven
-        run: mvn -B verify -Dtest=com.sparta.ojg.TestRunner
+        run: mvn -B verify
         working-directory: Test-Framework
+        
