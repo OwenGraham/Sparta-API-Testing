@@ -1,32 +1,55 @@
 package com.sparta.ojg.stepdefs;
 
+import com.sparta.ojg.SharedState;
 import io.cucumber.java.en.And;
-import io.cucumber.java.en.Given;
-import io.cucumber.java.en.When;
+import io.restassured.path.json.JsonPath;
 
-public class AuthStepDef extends StepDefSuper{
-    private String endpoint;
-    private String username;
-    private String password;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
 
-    @Given("the endpoint {string}")
-    public void theEndpointEndpoint(String endpoint) {
-        this.endpoint = endpoint;
+public class AuthStepDef{
+    private final SharedState sharedState;
+    String responseBody;
+    JsonPath jsonPath;
+    public String token = "";
+
+    public AuthStepDef(SharedState sharedState) {
+        this.sharedState = sharedState;
     }
 
     @And("the username {string}")
     public void theUsernameUsername(String username) {
-        this.username = username;
+        //Set the username field of the shared state's account object to the username given in the Gherkin script
+        sharedState.account.setUsername(username);
     }
-
 
     @And("the password {string}")
     public void thePasswordPassword(String password) {
-        this.password = password;
+        //Set the password field of the shared state's account object to the password given in the Gherkin script
+        sharedState.account.setPassword(password);
     }
 
-    @When("I send a POST request")
-    public void iSendAPOSTRequest() {
-        System.out.println(endpoint + username + password);
+    @And("the request body containing the username and password")
+    public void theRequestBodyContainingTheUsernameAndPassword() {
+        //Set the request body as the shared state's account object in JSON form
+        sharedState.requestBody = sharedState.account.getCredentialsAsJson();
+    }
+
+    @And("the response body should include a bearer token")
+    public void theResponseBodyShouldIncludeABearerToken() {
+        // Assert that the JSON body of the response contains a value for the token field
+        responseBody = sharedState.response.getBody().asString();
+        jsonPath = new JsonPath(responseBody);
+        token = jsonPath.get("token");
+        assertThat(token, notNullValue());
+    }
+
+    @And("the response body should not include a bearer token")
+    public void theResponseBodyShouldNotIncludeABearerToken() {
+        //Assert that the JSON body of the response does not contain a value for the token field
+        responseBody = sharedState.response.getBody().asString();
+        jsonPath = new JsonPath(responseBody);
+        token = jsonPath.get("token");
+        assertThat(token,not(notNullValue()));
     }
 }

@@ -1,17 +1,16 @@
 package com.sparta.ojg;
 
-import io.cucumber.junit.Cucumber;
-import io.cucumber.junit.CucumberOptions;
-import org.junit.runner.RunWith;
+import io.cucumber.junit.platform.engine.Constants;
+import org.junit.platform.suite.api.*;
 
-@RunWith(Cucumber.class)
-@CucumberOptions(
-        features = {"src/test/resources/features"},
-        glue = {"com.sparta.ojg.stepdefs"},
-        plugin={"pretty", "html:target/testReport.html"},
-        publish=true
-)
-
+@Suite
+//Add Tests to run here by their tags
+@IncludeTags({})
+@SelectClasspathResource("features")
+@ConfigurationParameter(key = Constants.GLUE_PROPERTY_NAME,value = "com.sparta.ojg.stepdefs")
+//To run tests with combinations of tags, uncomment this line and add the desired tags to the value string
+//@ConfigurationParameter(key = Constants.FILTER_TAGS_PROPERTY_NAME, value = "@Get and @Happy")
+@ConfigurationParameter(key = Constants.PLUGIN_PROPERTY_NAME, value = "html:../cucumber-report/cucumber.html")
 public class TestRunner {
 
 }
