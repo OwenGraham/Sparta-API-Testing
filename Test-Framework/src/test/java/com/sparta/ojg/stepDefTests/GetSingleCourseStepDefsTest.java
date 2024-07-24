@@ -5,6 +5,7 @@ import com.sparta.ojg.stepdefs.GetSingleCourseStepDefs;
 import io.cucumber.java.Before;
 import io.restassured.response.Response;
 import io.restassured.response.ResponseBody;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -27,7 +28,7 @@ public class GetSingleCourseStepDefsTest {
     @InjectMocks
     private GetSingleCourseStepDefs sut;
 
-    @Before
+    @BeforeEach
     public void setup(){
         MockitoAnnotations.openMocks(this);
         sharedState.pathParams = new HashMap<>();
