@@ -5,8 +5,8 @@ import com.sparta.ojg.Utils;
 import com.sparta.ojg.stepdefs.CommonStepDefs;
 import io.restassured.response.Response;
 import io.restassured.response.ResponseBody;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -34,7 +34,7 @@ public class CommonStepDefsTest {
     private CommonStepDefs commonStepDefs;
 
 
-    @Before
+    @BeforeEach
     public void setUp() {
         MockitoAnnotations.openMocks(this);
 

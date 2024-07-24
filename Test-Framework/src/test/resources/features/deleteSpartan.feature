@@ -1,4 +1,8 @@
+@Feature7
+@Delete
 Feature: Delete Spartan by ID
+  @Happy
+  @StatusCode
   Scenario: delete an existing Spartan by ID and verify status code
     Given I have obtained a bearer token
     And the endpoint "/api/Spartans/{id}"
@@ -6,6 +10,8 @@ Feature: Delete Spartan by ID
     When I send a DELETE request
     Then the status code of the response should be 204
 
+  @Happy
+  @Function
   Scenario Outline: delete an existing Spartan by ID and verify Spartan no longer exists in database
     Given I have obtained a bearer token
     And the endpoint "/api/Spartans/{id}"
@@ -16,6 +22,8 @@ Feature: Delete Spartan by ID
       | id | expected |
       | 6  | 404      |
 
+  @Sad
+  @StatusCode
   Scenario: delete a non-existing Spartan
     Given I have obtained a bearer token
     And the endpoint "/api/Spartans/{id}"

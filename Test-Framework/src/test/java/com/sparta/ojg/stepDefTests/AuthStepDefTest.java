@@ -2,14 +2,11 @@ package com.sparta.ojg.stepDefTests;
 
 import com.sparta.ojg.Account;
 import com.sparta.ojg.SharedState;
-import com.sparta.ojg.Utils;
 import com.sparta.ojg.stepdefs.AuthStepDef;
-import com.sparta.ojg.stepdefs.CommonStepDefs;
-import io.cucumber.java.BeforeAll;
 import io.restassured.response.Response;
 import io.restassured.response.ResponseBody;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -33,7 +30,7 @@ public class AuthStepDefTest {
     @InjectMocks
     private AuthStepDef sut;
 
-    @Before
+    @BeforeEach
     public void setup(){
         MockitoAnnotations.openMocks(this);
 

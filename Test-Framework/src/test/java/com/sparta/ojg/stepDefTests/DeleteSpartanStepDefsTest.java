@@ -5,8 +5,8 @@ import com.sparta.ojg.Utils;
 import com.sparta.ojg.stepdefs.CreateSpartanStepDefs;
 import com.sparta.ojg.stepdefs.DeleteSpartanStepDefs;
 import io.restassured.response.Response;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -31,7 +31,7 @@ public class DeleteSpartanStepDefsTest {
     @InjectMocks
     private DeleteSpartanStepDefs sut;
 
-    @Before
+    @BeforeEach
     public void setup(){
         MockitoAnnotations.openMocks(this);
         sut.utils = utils;

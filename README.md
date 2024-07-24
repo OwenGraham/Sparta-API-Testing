@@ -1,5 +1,7 @@
 # Sparta API Testing Project
 
+[GitHub](https://github.com/OwenGraham/Sparta-API-Testing)
+
 ## Contents
 
 - [API Documentation](#api-documentation)
@@ -27,6 +29,58 @@ The framework is set to run using the Docker image unless it is running on a Lin
 ### User Guide
 
 The tests can either be run by scenario/feature from the .feature files in `Test-Framework/src/test/resources/features` or all tests can be run by running `Test-Framework/src/test/java/com/sparta/ojg/TestRunner.java`. Running the tests from the TestRunner class has the benefit of generating a Cucumber report.
+
+Tests are organised using tags by:
+
+#### Feature
+
+- `@Feature1`
+- `@Feature2`
+- `@Feature3`
+- `@Feature4`
+- `@Feature5`
+- `@Feature6`
+- `@Feature7`
+- `@Feature8`
+
+
+#### Type of HTTP request 
+ 
+- `@Get`
+- `@Post`
+- `@Delete`
+- `@Put`
+
+#### Happy or sad path
+
+- `@Happy`
+- `@Sad`
+
+#### Whether it is testing the status code, the message in the response body, or that the requested operation has been successful or not
+
+- `@StatusCode`
+- `@Message`
+- `@Function`
+
+Tests can be run or not by adding/removing the relevant tags from the `@IncludeTags` annotation in the TestRunner class, or to run combinations of tags, add them to the Constants.FILTER_TAGS_PROPERTY_NAME configuration parameter.
+
+For example, to run all tests annotated with **both** the `@Get` and `@Happy` tags, your TestRunner class should look like this 
+
+```java
+package com.sparta.ojg;
+
+import io.cucumber.junit.platform.engine.Constants;
+import org.junit.platform.suite.api.*;
+
+@Suite
+@IncludeTags({})
+@SelectClasspathResource("features")
+@ConfigurationParameter(key = Constants.GLUE_PROPERTY_NAME,value = "com.sparta.ojg.stepdefs")
+@ConfigurationParameter(key = Constants.FILTER_TAGS_PROPERTY_NAME, value = "@Get and @Happy")
+public class TestRunner {
+
+}
+```
 
 ### API Documentation
 [Here](https://spartaacademyapi20240530152521.azurewebsites.net/swagger/index.html)
@@ -142,3 +196,4 @@ Future testers should consider:
 - The product owner should be contacted to discuss the status codes provided by the API, as in many cases the codes received and the most suitable. Similarly, they may want to consider adding more informative messages to API responses.
 - The create Spartan feature needs fixing.
 - The Swagger documentation should be updated to correctly provide level of authentication needed for API calls.
+- Create POJO objects for Spartans and courses for more thorough comparison of expected and actual data. 

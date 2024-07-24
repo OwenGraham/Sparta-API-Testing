@@ -5,8 +5,8 @@ import com.sparta.ojg.SharedState;
 import com.sparta.ojg.stepdefs.AuthStepDef;
 import com.sparta.ojg.stepdefs.CreateSpartanStepDefs;
 import io.restassured.response.Response;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -23,7 +23,7 @@ public class CreateSpartanStepDefsTest {
     @InjectMocks
     private CreateSpartanStepDefs sut;
 
-    @Before
+    @BeforeEach
     public void setup(){
         MockitoAnnotations.openMocks(this);
     }

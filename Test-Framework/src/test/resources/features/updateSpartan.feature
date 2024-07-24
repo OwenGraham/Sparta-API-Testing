@@ -1,4 +1,8 @@
+@Feature8
+@Put
 Feature: update Spartan data by ID
+  @Happy
+  @StatusCode
   Scenario Outline: update existing Spartan with valid data and verify status code of response
     Given I have obtained a bearer token
     And the endpoint "api/Spartans/{id}"
@@ -10,6 +14,8 @@ Feature: update Spartan data by ID
       | file |
       | src/test/resources/Test Data/John Lennon updated.json |
 
+  @Happy
+  @Function
   Scenario Outline: update existing Spartan with valid data and verify database is updated correctly
     Given I have obtained a bearer token
     And the endpoint "api/Spartans/{id}"
@@ -21,6 +27,8 @@ Feature: update Spartan data by ID
       | id | file | field | expected |
       | 2  | src/test/resources/Test Data/John Lennon updated.json | graduated | true |
 
+  @Sad
+  @StatusCode
   Scenario Outline: update existing Spartan with invalid (missing/incorrect data type) data and verify status code of response
     Given I have obtained a bearer token
     And the endpoint "api/Spartans/{id}"
@@ -35,6 +43,8 @@ Feature: update Spartan data by ID
       # The firstName field in this data is a number
       | 4  | src/test/resources/Test Data/Invalid updated Ringo.json     |
 
+  @Sad
+  @Function
   Scenario Outline: update existing Spartan with invalid (missing/incorrect data type) data and verify database isn't updated
     Given I have obtained a bearer token
     And the endpoint "api/Spartans/{id}"
@@ -49,6 +59,8 @@ Feature: update Spartan data by ID
       # The firstName field in this data is a number
       | 4  | src/test/resources/Test Data/Invalid updated Ringo.json     | firstName | Ringo |
 
+  @Sad
+  @StatusCode
   Scenario Outline: update non-existing Spartan
     Given I have obtained a bearer token
     And the endpoint "api/Spartans/{id}"
@@ -60,6 +72,8 @@ Feature: update Spartan data by ID
       | file |
       | src/test/resources/Test Data/John Lennon updated.json |
 
+  @Sad
+  @StatusCode
   Scenario Outline: update existing Spartan's ID to already taken ID
     Given I have obtained a bearer token
     And the endpoint "api/Spartans/{id}"
