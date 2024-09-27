@@ -176,7 +176,7 @@ The full list of tests, with links to the respective items on the project board,
 
 ### Framework Architecture
 
-![UML Diagram](/Documentation/UML Diagram.png)
+![UML Diagram](/Documentation/UML%20Diagram.png)
 
 The framework is build using JUnit and Cucumber, with features split into scenarios written declaratively in Gherkin syntax, which can be found [here](Test-Framework/src/test/resources/features).
 Each step in the scenarios is tied to a method in one of the [StepDef classes](Test-Framework/src/test/java/com/sparta/ojg/stepdefs) by the TestRunner class. StepDefs that are used in multiple different scenarios are in `CommonStepDefs.java`, and functionality that is used by multiple different stepdefs are encapsulated into methods in [Utils.java](Test-Framework/src/test/java/com/sparta/ojg/Utils.java).
