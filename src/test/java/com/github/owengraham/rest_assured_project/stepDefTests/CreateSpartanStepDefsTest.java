@@ -1,17 +1,12 @@
-package com.sparta.ojg.stepDefTests;
+package com.github.owengraham.rest_assured_project.stepDefTests;
 
-import com.sparta.ojg.Account;
-import com.sparta.ojg.SharedState;
-import com.sparta.ojg.stepdefs.AuthStepDef;
-import com.sparta.ojg.stepdefs.CreateSpartanStepDefs;
-import io.restassured.response.Response;
+import com.github.owengraham.rest_assured_project.SharedState;
+import com.github.owengraham.rest_assured_project.stepdefs.CreateSpartanStepDefs;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-
-import java.util.HashMap;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;

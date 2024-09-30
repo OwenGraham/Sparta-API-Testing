@@ -1,12 +1,11 @@
-package com.sparta.ojg.stepdefs;
+package com.github.owengraham.rest_assured_project.stepdefs;
 
-import com.sparta.ojg.RestartDocker;
-import com.sparta.ojg.SharedState;
-import com.sparta.ojg.Utils;
+import com.github.owengraham.rest_assured_project.RestartDocker;
+import com.github.owengraham.rest_assured_project.SharedState;
+import com.github.owengraham.rest_assured_project.Utils;
 import io.cucumber.core.internal.com.fasterxml.jackson.core.JsonProcessingException;
 import io.cucumber.core.internal.com.fasterxml.jackson.databind.ObjectMapper;
 import io.cucumber.java.AfterAll;
-import io.cucumber.java.Before;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;

@@ -1,4 +1,4 @@
-package com.sparta.ojg;
+package com.github.owengraham.rest_assured_project;
 
 import io.cucumber.core.internal.com.fasterxml.jackson.core.JsonProcessingException;
 import io.cucumber.core.internal.com.fasterxml.jackson.databind.ObjectMapper;

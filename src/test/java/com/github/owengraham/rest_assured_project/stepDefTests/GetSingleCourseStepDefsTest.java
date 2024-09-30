@@ -1,8 +1,7 @@
-package com.sparta.ojg.stepDefTests;
+package com.github.owengraham.rest_assured_project.stepDefTests;
 
-import com.sparta.ojg.SharedState;
-import com.sparta.ojg.stepdefs.GetSingleCourseStepDefs;
-import io.cucumber.java.Before;
+import com.github.owengraham.rest_assured_project.SharedState;
+import com.github.owengraham.rest_assured_project.stepdefs.GetSingleCourseStepDefs;
 import io.restassured.response.Response;
 import io.restassured.response.ResponseBody;
 import org.junit.jupiter.api.BeforeEach;

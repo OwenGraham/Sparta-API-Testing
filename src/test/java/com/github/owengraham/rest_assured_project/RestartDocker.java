@@ -1,4 +1,4 @@
-package com.sparta.ojg;
+package com.github.owengraham.rest_assured_project;
 
 import java.io.IOException;
 

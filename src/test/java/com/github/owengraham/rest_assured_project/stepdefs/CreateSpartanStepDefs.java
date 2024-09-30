@@ -1,7 +1,7 @@
-package com.sparta.ojg.stepdefs;
+package com.github.owengraham.rest_assured_project.stepdefs;
 
-import com.sparta.ojg.SharedState;
-import com.sparta.ojg.Utils;
+import com.github.owengraham.rest_assured_project.SharedState;
+import com.github.owengraham.rest_assured_project.Utils;
 import io.cucumber.core.internal.com.fasterxml.jackson.core.JsonParseException;
 import io.cucumber.core.internal.com.fasterxml.jackson.databind.JsonNode;
 import io.cucumber.core.internal.com.fasterxml.jackson.databind.ObjectMapper;

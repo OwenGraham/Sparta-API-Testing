@@ -1,7 +1,7 @@
-package com.sparta.ojg.stepdefs;
+package com.github.owengraham.rest_assured_project.stepdefs;
 
-import com.sparta.ojg.SharedState;
-import com.sparta.ojg.Utils;
+import com.github.owengraham.rest_assured_project.SharedState;
+import com.github.owengraham.rest_assured_project.Utils;
 import io.cucumber.java.en.Then;
 import io.restassured.response.Response;
 import static org.hamcrest.MatcherAssert.assertThat;

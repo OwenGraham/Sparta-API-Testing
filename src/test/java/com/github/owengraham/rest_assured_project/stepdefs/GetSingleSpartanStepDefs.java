@@ -1,6 +1,6 @@
-package com.sparta.ojg.stepdefs;
+package com.github.owengraham.rest_assured_project.stepdefs;
 
-import com.sparta.ojg.SharedState;
+import com.github.owengraham.rest_assured_project.SharedState;
 import io.cucumber.java.en.And;
 import io.restassured.path.json.JsonPath;
 
