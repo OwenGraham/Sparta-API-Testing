@@ -16,6 +16,7 @@ For further information, please contact the repository owner.
 
 - [API Documentation](#api-documentation)
 - [User Guide](#user-guide)
+- [Testing Strategy](#testing-strategy)
 - [Framework Architecture](#framework-architecture)
 - [Features, Scenarios, and Defects](#features-scenarios-and-defects)
 - [CI/CD](#cicd-)
@@ -110,7 +111,6 @@ Before writing any test cases/user stories, a 1hr exploratory testing session of
 
 | ![postman.png](Documentation/images/postman.png) | ![swagger.png](Documentation/images/swagger.png) |
 |--------------------------------------------------|--------------------------------------------------|
-
 
 A [GitHub project board](https://github.com/users/OwenGraham/projects/3/views/1) was used to organise the project. 
 
