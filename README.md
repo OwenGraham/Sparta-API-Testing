@@ -2,67 +2,63 @@
 
 [GitHub](https://github.com/OwenGraham/Sparta-API-Testing)
 
+## Overview
+
+This is an API testing project created by Owen Graham for validating the functionality and reliability of the [Sparta Global Academy API](https://spartaacademyapi20240530152521.azurewebsites.net/swagger/index.html).
+
+The test automation framework, built using RestAssured, is designed for comprehensive testing of the API's endpoints. It includes various testing strategies such as functional, integration, and contract testing to ensure robust validation of the API's responses. The framework is integrated with CI/CD pipelines and leverages Cucumber for BDD-style test scenarios, and JUnit and Mockito for unit testing.
+
+This project showcases advanced API test automation skills and best practices in building scalable and maintainable test frameworks.
+
+For further information, please contact the repository owner.
+
 ## Contents
 
 - [API Documentation](#api-documentation)
-- [Setup Instructions](#setup-instructions)
 - [User Guide](#user-guide)
 - [Framework Architecture](#framework-architecture)
 - [Features, Scenarios, and Defects](#features-scenarios-and-defects)
 - [CI/CD](#cicd-)
 - [Contribution Guidelines For Future Testers](#contribution-guidelines-for-future-testers)
 
-### Setup Instructions
+## API Documentation
+[Here](https://spartaacademyapi20240530152521.azurewebsites.net/swagger/index.html)
+
+## User Guide
 
 The following setup instructions are for Windows operating systems.
 
-- Clone the repository to you local machine
-- Open `/Test-Framework/` in your IDE and build the Maven project.
+### To run the containerized API
 
-For greater repeatability of tests, I advise you run the tests against a containerised version of the API. To do this
-
-- Download and unzip `SpartaAcademyApp.zip`
+- Unzip `SpartaAcademyApp.zip`
 - Follow the instructions in `SpartaAcademyApp/README.md` to set up the Docker image.
 
-The framework is set to run using the Docker image unless it is running on a Linux OS. Thi is so that the tests run against the live API during GitHub action workflow runs. The code responsible for this is in `Test-Framework/src/test/java/com/sparta/ojg/SharedState.java`.
+### To run the tests
 
-### User Guide
+1. Clone the repository to you local machine `git clone https://github.com/OwenGraham/Sparta-API-Testing.git`
+2. Open the repository in a terminal and build the project `mvn clean install -DskipTests`
+3. Run the command `mvn test -Dtest="com.github.owengraham.rest_assured_project.TestRunner"`
 
-The tests can either be run by scenario/feature from the .feature files in `Test-Framework/src/test/resources/features` or all tests can be run by running `Test-Framework/src/test/java/com/sparta/ojg/TestRunner.java`. Running the tests from the TestRunner class has the benefit of generating a Cucumber report.
+### Running in suites
 
-Tests are organised using tags by:
+Tests are organised into suites using junit tag annotations, such as @Happy and @StatusCode. See the table below for all tags:
 
-#### Feature
+| Category                                                                                                                             | Tags                                                                                            |
+|--------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------|
+| Feature                                                                                                                              | `@Feature1` `@Feature2` `@Feature3` `@Feature4` `@Feature5` `@Feature6` `@Feature7` `@Feature8` |
+| HTTP method                                                                                                                          | `@Get` `@Post` `@Delete` `@Put`                                                                 |
+| Happy or sad test case                                                                                                               | `@Happy` `@Sad`                                                                                 |
+| Whether it is testing the status code, the message in the response body, or that the requested operation has been successful or not  | `@StatusCode` `@Message` `@Function`                                                            |
 
-- `@Feature1`
-- `@Feature2`
-- `@Feature3`
-- `@Feature4`
-- `@Feature5`
-- `@Feature6`
-- `@Feature7`
-- `@Feature8`
+To run the tests in suites, use the groups system property of Maven's test command, and set the value as the name of the tag the scenarios you want to run are annotated with.
 
+`mvn test -Dgroups=Happy`
 
-#### Type of HTTP request 
- 
-- `@Get`
-- `@Post`
-- `@Delete`
-- `@Put`
+To run multiple suites, use a list of tags, separated by commas and enclosed in quotation marks.
 
-#### Happy or sad path
+`mvn test -Dgroups="Post,StatusCode"`
 
-- `@Happy`
-- `@Sad`
-
-#### Whether it is testing the status code, the message in the response body, or that the requested operation has been successful or not
-
-- `@StatusCode`
-- `@Message`
-- `@Function`
-
-Tests can be run or not by adding/removing the relevant tags from the `@IncludeTags` annotation in the TestRunner class, or to run combinations of tags, add them to the Constants.FILTER_TAGS_PROPERTY_NAME configuration parameter.
+Alternatively, in an IDE, tests can be run or not by adding/removing the relevant tags from the `@IncludeTags` annotation in the TestRunner class, or to run combinations of tags, add them to the Constants.FILTER_TAGS_PROPERTY_NAME configuration parameter.
 
 For example, to run all tests annotated with **both** the `@Get` and `@Happy` tags, your TestRunner class should look like this 
 
@@ -82,15 +78,22 @@ public class TestRunner {
 }
 ```
 
-### API Documentation
-[Here](https://spartaacademyapi20240530152521.azurewebsites.net/swagger/index.html)
+## Running in an IDE
 
-### Testing Strategy
+For best results, open the project in an IDE with the Cucumber plugin, and run the tests directly from the .feature files in src/test/resources/features.
+
+![INSERT HERE Screen recording of running tests from .feature file in IDE](Documentation/gifs/running-in-ide)
+
+## Testing Strategy
 
 Before writing any test cases/user stories, a 1hr exploratory testing session was conducted to quickly identify obvious defects and to familiarize myself with the Sparta API, the test charter can be found [here](https://github.com/users/OwenGraham/projects/3/views/1?pane=issue&itemId=70470391).
 
 
-A [GitHub project board](https://github.com/users/OwenGraham/projects/3/views/1) was used to organise the project. This was divided into the following columns:
+A [GitHub project board](https://github.com/users/OwenGraham/projects/3/views/1) was used to organise the project. 
+
+![](Documentation/images/project-board.png)
+
+This was divided into the following columns:
 
 - ToDo: The project backlog
 - In Progress: Items currently being worked on
@@ -135,7 +138,7 @@ The tests for this feature were similar to those for creating a new Spartan, wit
 
 The full list of tests, with links to the respective items on the project board, is in the table below:
 
-### Features, Scenarios, and Defects
+## Features, Scenarios, and Defects
 
 | Feature                                                                                                              | Scenarios                                                                                                                     | Defects                                                                                                                                                                     |
 |----------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -174,7 +177,7 @@ The full list of tests, with links to the respective items on the project board,
 |                                                                                                                      | **Scenario 08.05** Update non-existing Spartan                                                                                | [**Defect 08.05.01** Update non-existing Spartan returns incorrect response code](https://github.com/users/OwenGraham/projects/3/views/1?pane=issue&itemId=71396210)        |
 |                                                                                                                      | **Scenario 08.06** Update existing Spartan's ID to already taken ID                                                           |                                                                                                                                                                             |
 
-### Framework Architecture
+## Framework Architecture
 
 ![UML Diagram](/Documentation/UML%20Diagram.png)
 
@@ -184,11 +187,13 @@ Data is shared between the StepDef classes using a Cucumber Pico Container, [Sha
 The functionality of all StepDefs were tested independently of their dependencies using Mockito. These tests can be found/ran in `Test-Framework/src/test/java/com/sparta/ojg/stepDefTests`. 
 The data used in the tests is all written in JSON files found [here](Test-Framework/src/test/resources/Test Data).
 
-### CI/CD 
+## CI/CD 
 
 A GitHub action workflow was created and can be found [here](.github/workflows/test.yml). This runs on pushes and pull requests to `main`, and builds the maven project, and runs the tests, so that the pull request is only successful if all tests pass.
 
-### Contribution Guidelines For Future Testers
+The framework is set to run using the Docker image unless it is running on a Linux OS. This is so that the tests run against the live API during GitHub action workflow runs. The code responsible for this is in `Test-Framework/src/test/java/com/sparta/ojg/SharedState.java`.
+
+## Contribution Guidelines For Future Testers
 
 Future testers should consider: 
 
