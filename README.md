@@ -1,6 +1,6 @@
 # Sparta API Testing Project
 
-[GitHub](https://github.com/OwenGraham/Sparta-API-Testing)
+[GitHub](https://githu b.com/OwenGraham/Sparta-API-Testing)
 
 ## Overview
 
@@ -55,6 +55,9 @@ Once finished, stop the container using the following command:
 >`mvn clean install -DskipTests`
 3. Run the following command to run all scenarios: 
 >`mvn test -Dtest="com.github.owengraham.rest_assured_project.TestRunner"`
+4. View the test results either in the terminal or by opening `cucumber-report/cucumber.html` in a browser.
+
+![cucumber-report.png](Documentation/images/cucumber-report.png)
 
 ### Running in suites
 
@@ -103,7 +106,10 @@ For best results, open the project in an IDE with the Cucumber plugin, and run t
 
 ## Testing Strategy
 
-Before writing any test cases/user stories, a 1hr exploratory testing session was conducted to quickly identify obvious defects and to familiarize myself with the Sparta API, the test charter can be found [here](https://github.com/users/OwenGraham/projects/3/views/1?pane=issue&itemId=70470391).
+Before writing any test cases/user stories, a 1hr exploratory testing session of the endpoints was conducted using Postman and Swagger to quickly identify obvious defects and to familiarize myself with the Sparta API, the test charter can be found [here](https://github.com/users/OwenGraham/projects/3/views/1?pane=issue&itemId=70470391).
+
+| ![postman.png](Documentation/images/postman.png) | ![swagger.png](Documentation/images/swagger.png) |
+|--------------------------------------------------|--------------------------------------------------|
 
 
 A [GitHub project board](https://github.com/users/OwenGraham/projects/3/views/1) was used to organise the project. 
@@ -192,6 +198,10 @@ The data used in the tests is all written in JSON files found [here](Test-Framew
 A GitHub action workflow was created and can be found [here](.github/workflows/test.yml). This runs on pushes and pull requests to `main`, and builds the maven project, and runs the tests, so that the pull request is only successful if all tests pass.
 
 The framework is set to run using the Docker image unless it is running on a Linux OS. This is so that the tests run against the live API during GitHub action workflow runs. The code responsible for this is in `Test-Framework/src/test/java/com/sparta/ojg/SharedState.java`.
+
+## Test Metrics
+
+![cucumber-metrics.png](Documentation/images/cucumber-metrics.png)
 
 ## Contribution Guidelines For Future Testers
 
