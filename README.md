@@ -26,18 +26,35 @@ For further information, please contact the repository owner.
 
 ## User Guide
 
+### Prerequisites
+
+- [Maven](https://maven.apache.org/download.cgi)
+- [JDK 22](https://www.oracle.com/java/technologies/javase/jdk22-archive-downloads.html)
+- [Docker](https://docs.docker.com/get-started/get-docker/)
+
 The following setup instructions are for Windows operating systems.
 
 ### To run the containerized API
 
 - Unzip `SpartaAcademyApp.zip`
-- Follow the instructions in `SpartaAcademyApp/README.md` to set up the Docker image.
+- Open the **SpartaAcademyAPI** directory in a terminal
+- Execute the following command to build the Docker image:
+> `docker build -t spartaacedemyapi .`
+- Start a Docker container from the built image using the following command:
+> `docker run -d -p 8080:8080 -p 8081:8081 spartaacedemyapi`
+
+Once finished, stop the container using the following command:
+
+> `docker stop spartaacademyapi`
 
 ### To run the tests
 
-1. Clone the repository to you local machine `git clone https://github.com/OwenGraham/Sparta-API-Testing.git`
-2. Open the repository in a terminal and build the project `mvn clean install -DskipTests`
-3. Run the command `mvn test -Dtest="com.github.owengraham.rest_assured_project.TestRunner"`
+1. Clone the repository to you local machine 
+>`git clone https://github.com/OwenGraham/Sparta-API-Testing.git`
+2. Open the repository in a terminal and build the project 
+>`mvn clean install -DskipTests`
+3. Run the following command to run all scenarios: 
+>`mvn test -Dtest="com.github.owengraham.rest_assured_project.TestRunner"`
 
 ### Running in suites
 
@@ -52,11 +69,11 @@ Tests are organised into suites using junit tag annotations, such as @Happy and 
 
 To run the tests in suites, use the groups system property of Maven's test command, and set the value as the name of the tag the scenarios you want to run are annotated with.
 
-`mvn test -Dgroups=Happy`
+>`mvn test -Dgroups=Happy`
 
 To run multiple suites, use a list of tags, separated by commas and enclosed in quotation marks.
 
-`mvn test -Dgroups="Post,StatusCode"`
+>`mvn test -Dgroups="Post,StatusCode"`
 
 Alternatively, in an IDE, tests can be run or not by adding/removing the relevant tags from the `@IncludeTags` annotation in the TestRunner class, or to run combinations of tags, add them to the Constants.FILTER_TAGS_PROPERTY_NAME configuration parameter.
 
@@ -82,7 +99,7 @@ public class TestRunner {
 
 For best results, open the project in an IDE with the Cucumber plugin, and run the tests directly from the .feature files in src/test/resources/features.
 
-![INSERT HERE Screen recording of running tests from .feature file in IDE](Documentation/gifs/running-in-ide)
+![Screen recording of running tests from .feature file in IDE](Documentation/gifs/running-in-ide.gif)
 
 ## Testing Strategy
 
@@ -91,7 +108,7 @@ Before writing any test cases/user stories, a 1hr exploratory testing session wa
 
 A [GitHub project board](https://github.com/users/OwenGraham/projects/3/views/1) was used to organise the project. 
 
-![](Documentation/images/project-board.png)
+![Screenshot of the GitHub Projects project board](Documentation/images/project-board.png)
 
 This was divided into the following columns:
 
@@ -103,38 +120,21 @@ This was divided into the following columns:
 
 An item was created for each feature to be tested, with these correlating to each endpoint of the API, and added to the ToDo column, and moved between columns appropriately. The tests for each feature were split into scenarios, written in Gherkin syntax.
 
+![Screenshot of the ticket for a feature on the project board](Documentation/images/feature-ticket.png)
+
 The tests were written to assert correct functionality, response status codes, descriptive messages in response bodies, and input validation. Additionally, although the Swagger documentation suggests no authentication is required for any API calls, some tests were written to assert whether a valid bearer token is required for successful data read/writes. Each feature was given a priority value from P0 to P2 based on how critical the feature is, for instance get single Spartan was given a higher priority than get all Spartans, since so long as the former works correctly it can be used to substitute the latter. The priorities were also based on industry regulations, for example delete Spartan was given priority P0 since GDPR regulations stipulate that a person's data must be deleted when it is no longer needed. 
+
 <br>The more specific test strategy for each feature is outlined below:
 
-#### Obtain bearer token: /Auth/login (POST)
-
-Verify that a token can be obtained from this endpoint when the request body contains a correctly formatted, valid username and password, but not if username or password are invalid.
-
-#### View all courses: /api/courses (GET) and View all Spartans: /api/spartans (GET)
-
-This endpoint does not take any parameters, so tests were just written to assert that the request is successful if a valid bearer token is provided in the request, and not otherwise. 
-
-#### View a specific course: /api/courses/{courseId} (GET) and View a specific Spartan: /api/spartans/{spartanId} (GET)
-
-- Check that data can't be accessed without providing a valid bearer token with the request.
-- Check for appropriate response when requesting a non-existing course. 
-- Check for appropriate response when request contains invalid parameter.
-  - Only one test is written for this, where the `courseId`/`id` parameter is given as a string.
-
-#### Create a new Spartan: /api/spartans (POST)
-
-- Requests with valid Spartan data should be successful (200 status code response, informative message in response, Spartan data can be accessed in subsequent GET requests to Spartans endpoint).
-- Requests with invalid Spartan data should be successful (400 status code response, informative message in response, Spartan data does not appear in subsequent GET requests to Spartans endpoint).
-> The framework currently only has 3 test cases for invalid data, but more can easily be created by writing the invalid data as a JSON file, and adding to path to the file to the table's in `Test-Framework/src/test/resources/features/createSpartan.feature`
-
-#### Update an existing Spartan: /api/spartans/{spartanId} (PUT)
-
-The tests for this feature were similar to those for creating a new Spartan, with the addition of tests to ensure that a user cannot update an existing Spartan's ID to an ID that is already taken by another Spartan.
-
-#### Delete an existing Spartan: /api/spartans/{spartanId} (DELETE)
-
-- Verify delete Spartan correctly affects database and receives response with appropriate status code and informative error message.
-- Verify attempts to delete non-existing Spartan don't affect database and receives response with appropriate status code and informative error message.
+| Feature                     | Endpoint                     | HTTP Method | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+|-----------------------------|------------------------------|-------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Obtain bearer token         | `/Auth/login`                | `POST`      | Verify that a token can be obtained from this endpoint when the request body contains a correctly formatted, valid username and password, but not if username or password are invalid.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| View all courses            | `/api/courses`               | `GET`       | This endpoint does not take any parameters, so tests were just written to assert that the request is successful if a valid bearer token is provided in the request, and not otherwise.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| View a specific course      | `/api/courses/{courseId}`    | `GET`       | - Check that data can't be accessed without providing a valid bearer token with the request.<br> - Check for appropriate response when requesting a non-existing course.<br> - Check for appropriate response when request contains invalid parameter. Only one test is written for this, where the `courseId`/`id` parameter is given as a string.                                                                                                                                                                                                                                                                                                                            |
+| View a specific Spartan     | `/api/spartans/{spartanId}`  | `GET`       | Same as View a specific course                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| Create a new Spartan        | `/api/spartans`              | `POST`      | - Requests with valid Spartan data should be successful (200 status code response, informative message in response, Spartan data can be accessed in subsequent GET requests to Spartans endpoint).<br>- Requests with invalid Spartan data should be successful (400 status code response, informative message in response, Spartan data does not appear in subsequent GET requests to Spartans endpoint).<br>- The framework currently only has 3 test cases for invalid data, but more can easily be created by writing the invalid data as a JSON file, and adding to path to the file to the table's in `Test-Framework/src/test/resources/features/createSpartan.feature` |
+| Update an existing Spartan  | `/api/spartans/{spartanId}`  | `PUT`       | The tests for this feature were similar to those for creating a new Spartan, with the addition of tests to ensure that a user cannot update an existing Spartan's ID to an ID that is already taken by another Spartan.                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| Delete an existing Spartan  | `/api/spartans/{spartanId}`  | `DELETE`    | - Verify delete Spartan correctly affects database and receives response with appropriate status code and informative error message.<br> - Verify attempts to delete non-existing Spartan don't affect database and receives response with appropriate status code and informative error message.                                                                                                                                                                                                                                                                                                                                                                              |
 
 The full list of tests, with links to the respective items on the project board, is in the table below:
 
@@ -179,7 +179,7 @@ The full list of tests, with links to the respective items on the project board,
 
 ## Framework Architecture
 
-![UML Diagram](/Documentation/UML%20Diagram.png)
+![UML Diagram](/Documentation/images/UML%20Diagram.png)
 
 The framework is build using JUnit and Cucumber, with features split into scenarios written declaratively in Gherkin syntax, which can be found [here](Test-Framework/src/test/resources/features).
 Each step in the scenarios is tied to a method in one of the [StepDef classes](Test-Framework/src/test/java/com/sparta/ojg/stepdefs) by the TestRunner class. StepDefs that are used in multiple different scenarios are in `CommonStepDefs.java`, and functionality that is used by multiple different stepdefs are encapsulated into methods in [Utils.java](Test-Framework/src/test/java/com/sparta/ojg/Utils.java).
