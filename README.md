@@ -1,6 +1,6 @@
 # Sparta API Testing Project
 
-[GitHub](https://githu b.com/OwenGraham/Sparta-API-Testing)
+[GitHub](https://github.com/OwenGraham/Sparta-API-Testing)
 
 ## Overview
 
