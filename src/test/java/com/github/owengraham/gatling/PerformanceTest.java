@@ -82,6 +82,7 @@ public class PerformanceTest extends Simulation {
                     .header("Authorization", "Bearer #{jwtToken}")
                     .check(status().is(200)));
 
+
     // Get specific Spartan
     private static ChainBuilder getSpartan =
             exec(http("Get specific Spartan")
@@ -105,26 +106,78 @@ public class PerformanceTest extends Simulation {
                     .check(status().is(204)));
 
 
-    // User journey
-    private static ScenarioBuilder scn = scenario("Sparta Academy API stress test").
-            exec(getAllCourses)
-            .exec(getCourse)
-            .exec(authenticateInvalid)
+    // Run with mvn gatling:test -D"gatling.simulationClass=com.github.owengraham.gatling.PerformanceTest"
+
+    private static ScenarioBuilder invalidAuthenticateScenario = scenario("Attempt authenticate with invalid credentials")
+            .exec(authenticateInvalid);
+
+    private static ScenarioBuilder authenticateScenario = scenario("Authenticate with valid credentials and check token works")
             .exec(authenticateValid)
-            .exec(getAllSpartans)
+            .pause(2)
+            .exec(createSpartan);
+
+    private static ScenarioBuilder getAllCoursesScenario = scenario("Get all courses")
+            .exec(getAllCourses);
+
+    private static ScenarioBuilder getCourseScenario = scenario("Get specific course by ID")
+            .exec(getCourse);
+
+    private static ScenarioBuilder getAllSpartansScenario = scenario("Get all Spartans")
+            .exec(authenticateValid)
+            .exec(getAllSpartans);
+
+    private static ScenarioBuilder getSpartanScenario = scenario("Get specific Spartan by ID")
+            .exec(authenticateValid)
+            .exec(getSpartan);
+
+    private static ScenarioBuilder createSpartanScenario = scenario("Create Spartan and get all Spartans")
+            .exec(authenticateValid)
             .exec(createSpartan)
-            .exec(getSpartan)
+            .pause(2)
+            .exec(getAllSpartans);
+
+    private static ScenarioBuilder deleteSpartanScenario = scenario("Delete Spartan and get all Spartans")
+            .exec(authenticateValid)
             .exec(deleteSpartan)
-            .exec(updateSpartan);
+            .pause(2)
+            .exec(getAllSpartans);
+
+    private static ScenarioBuilder updateSpartanScenario = scenario("Update Spartan and get Spartan data")
+            .exec(authenticateValid)
+            .exec(updateSpartan)
+            .pause(2)
+            .exec(getSpartan);
 
     // Load simulation
     {
-        setUp(
-                scn.injectOpen(
-                        nothingFor(5),
+        setUp(  getCourseScenario.injectOpen(
                         rampUsers(USER_COUNT).during(RAMP_DURATION)
-                ).protocols(httpProtocol)
-        ).maxDuration(TEST_DURATION);
+                ),
+                getAllCoursesScenario.injectOpen(
+                        rampUsers(USER_COUNT).during(RAMP_DURATION)
+                ),
+                invalidAuthenticateScenario.injectOpen(
+                        rampUsers(USER_COUNT).during(RAMP_DURATION)
+                ),
+                authenticateScenario.injectOpen(
+                        rampUsers(USER_COUNT).during(RAMP_DURATION)
+                ),
+                getAllSpartansScenario.injectOpen(
+                        rampUsers(USER_COUNT).during(RAMP_DURATION)
+                ),
+                getSpartanScenario.injectOpen(
+                        rampUsers(USER_COUNT).during(RAMP_DURATION)
+                ),
+                createSpartanScenario.injectOpen(
+                        rampUsers(USER_COUNT).during(RAMP_DURATION)
+                ),
+                deleteSpartanScenario.injectOpen(
+                        rampUsers(USER_COUNT).during(RAMP_DURATION)
+                ),
+                updateSpartanScenario.injectOpen(
+                        rampUsers(USER_COUNT).during(RAMP_DURATION)
+                )
+        ).protocols(httpProtocol).maxDuration(TEST_DURATION);
     }
 
     // After block - restart Docker image
