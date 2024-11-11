@@ -1,0 +1,22 @@
+{
+  "id": 0,
+  "firstName": "string",
+  "university": "string",
+  "degree": "string",
+  "course": {
+    "id": 0,
+    "name": "string",
+    "stream": {
+      "id": 0,
+      "name": "string",
+      "courses": []
+    },
+    "streamId": 0,
+    "trainer": "string",
+    "startDate": "2024-07-12T08:14:35.703Z",
+    "endDate": "2024-07-12T08:14:35.703Z",
+    "spartans": []
+  },
+  "courseId": 0,
+  "graduated": true
+}

@@ -25,3 +25,5 @@ jobs:
         run: mvn -B verify
         working-directory: Test-Framework
         
+      - name: Run perforance test
+        run: mvn gatling:test -D"gatling.simulationClass=com.github.owengraham.gatling.PerformanceTest"
