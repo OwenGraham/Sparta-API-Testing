@@ -6,7 +6,7 @@
 
 This is an API testing project created by Owen Graham for validating the functionality and reliability of the [Sparta Global Academy API](https://spartaacademyapi20240530152521.azurewebsites.net/swagger/index.html).
 
-The test automation framework, built using RestAssured, is designed for comprehensive testing of the API's endpoints. It includes various testing strategies such as functional, integration, and contract testing to ensure robust validation of the API's responses. The framework is integrated with CI/CD pipelines and leverages Cucumber for BDD-style test scenarios, and JUnit and Mockito for unit testing.
+The test automation framework, built using RestAssured, is designed for comprehensive testing of the API's endpoints. It includes various testing strategies such as functional, integration, and performance testing to ensure robust validation of the API's responses. The framework is integrated with CI/CD pipelines and leverages Cucumber for BDD-style test scenarios, Gatling for performance testing, and JUnit and Mockito for unit testing.
 
 This project showcases advanced API test automation skills and best practices in building scalable and maintainable test frameworks.
 
@@ -14,13 +14,26 @@ For further information, please contact the repository owner.
 
 ## Contents
 
-- [API Documentation](#api-documentation)
-- [User Guide](#user-guide)
-- [Testing Strategy](#testing-strategy)
-- [Framework Architecture](#framework-architecture)
-- [Features, Scenarios, and Defects](#features-scenarios-and-defects)
-- [CI/CD](#cicd-)
-- [Contribution Guidelines For Future Testers](#contribution-guidelines-for-future-testers)
+- [Sparta API Testing Project](#sparta-api-testing-project)
+  - [Overview](#overview)
+  - [Contents](#contents)
+  - [API Documentation](#api-documentation)
+  - [User Guide](#user-guide)
+    - [Prerequisites](#prerequisites)
+    - [To run the containerized API](#to-run-the-containerized-api)
+    - [To run the tests](#to-run-the-tests)
+    - [Running in suites](#running-in-suites)
+  - [Running in an IDE](#running-in-an-ide)
+  - [Performance Testing](#performance-testing)
+    - [Running Performance Tests](#running-performance-tests)
+    - [Configuring Performance Tests](#configuring-performance-tests)
+      - [Example](#example)
+  - [Testing Strategy](#testing-strategy)
+  - [Features, Scenarios, and Defects](#features-scenarios-and-defects)
+  - [Framework Architecture](#framework-architecture)
+  - [CI/CD](#cicd)
+  - [Test Metrics](#test-metrics)
+  - [Contribution Guidelines For Future Testers](#contribution-guidelines-for-future-testers)
 
 ## API Documentation
 [Here](https://spartaacademyapi20240530152521.azurewebsites.net/swagger/index.html)
@@ -104,6 +117,40 @@ public class TestRunner {
 For best results, open the project in an IDE with the Cucumber plugin, and run the tests directly from the .feature files in src/test/resources/features.
 
 ![Screen recording of running tests from .feature file in IDE](Documentation/gifs/running-in-ide.gif)
+
+## Performance Testing
+
+Performance testing is integrated into the framework using Gatling. The performance tests are designed to simulate various load scenarios and measure the API's performance under different conditions.
+
+### Running Performance Tests
+
+To run the performance tests, use the following command:
+
+```bash
+mvn gatling:test -D"gatling.simulationClass=com.github.owengraham.gatling.PerformanceTest"
+```
+
+This command will excecute the Gatling performance tests defined in `src\test\java\com\github\owengraham\gatling\PerformanceTest.java`. 
+
+The results of the tests can be viewed in the terminal, and a detailed test report will be generated in `target\gatling`. 
+
+![Gatling report from performance tests](Documentation/images/gatling-report.png)
+
+### Configuring Performance Tests
+
+The performance tests can be configured using system properties:
+
+- `USERS`: Number of concurrent users (default: 5)
+- `RAMP_DURATION`: Duration (in seconds) to ramp up the users (default: 10)
+- `TEST_DURATION`: Total duration (in seconds) of the test (default: 20)
+
+#### Example
+
+```bash
+mvn gatling:test -D"gatling.simulationClass=com.github.owengraham.gatling.PerformanceTest" -DUSERS=20 -DRAMP_DURATION=20 -DTEST_DURATION=60
+```
+
+This will run the performance test with 20 concurrent users, ramping up over 20 seconds, and running for a total of 60 seconds.
 
 ## Testing Strategy
 
